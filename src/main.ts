@@ -4,7 +4,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  // Configuración personalizada de CORS
+  app.enableCors({
+    origin: 'http://localhost:5173', // Permite solicitudes solo desde este origen
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos permitidos
+    allowedHeaders: 'Content-Type, Authorization', // Encabezados permitidos
+    credentials: true, // Permite el envío de credenciales como cookies
+  });
   const config = new DocumentBuilder()
     .setTitle('NestJS Auth API')
     .setDescription('API con autenticación JWT')
